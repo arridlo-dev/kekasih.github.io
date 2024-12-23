@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KEKASIH</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-image: url(asset/bg\ 1.jpg);
+        background-size: cover; /* Mengubah ukuran latar belakang agar sesuai */
+        background-position: center; /* Memusatkan gambar latar belakang */
+        color: rgb(107, 4, 121);
+        font-family: "Times New Roman", Times, serif;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column; /* Mengatur arah flex menjadi kolom */
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        cursor: url("love-cursor.png"), auto; /* Ganti dengan path emotikon cinta */
+      }
+
+      .photo {
+        margin-bottom: 20px; /* Memberikan jarak antara foto dan teks */
+      }
+
+      .foto {
+        width: 200px;
+        height: auto; /* Mengatur tinggi otomatis untuk menjaga rasio aspek */
+        max-height: 250px; /* Maksimal tinggi untuk foto */
+        border-radius: 10px;
+        border: 3px solid rgb(241, 25, 144);
+      }
+
+      .text {
+        font-size: 25px;
+        white-space: nowrap;
+        border-right: 2px solid red; /* Efek kursor */
+        animation: blink 0.7s step-end infinite;
+        text-align: center; /* Memusatkan teks */
+        margin: 10px 0; /* Jarak antara teks dan emotikon */
+      }
+
+      @keyframes blink {
+        50% {
+          border-color: transparent;
+        }
+      }
+
+      .emot {
+        font-size: 50px; /* Ukuran emotikon */
+        margin: 10px 0; /* Jarak atas dan bawah */
+        animation: move 5s linear infinite; /* Animasi bergerak */
+      }
+
+      @keyframes move {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: rgb(21, 1, 26);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+
+      button:hover {
+        background-color: rgb(241, 96, 205);
+      }
+
+      /* Media Queries untuk Responsivitas */
+      @media (max-width: 768px) {
+        .foto {
+          width: 150px; /* Ukuran foto lebih kecil di tablet */
+          max-height: 200px; /* Maksimal tinggi untuk foto */
+        }
+
+        .text {
+          font-size: 20px; /* Ukuran teks lebih kecil di tablet */
+        }
+
+        .emot {
+          font-size: 40px; /* Ukuran emotikon lebih kecil di tablet */
+        }
+
+        button {
+          font-size: 16px; /* Ukuran tombol lebih kecil di tablet */
+        }
+      }
+
+      @media (max-width: 480px) {
+        .foto {
+          width: 120px; /* Ukuran foto lebih kecil di ponsel */
+          max-height: 160px; /* Maksimal tinggi untuk foto */
+        }
+
+        .text {
+          font-size: 15px; /* Ukuran teks lebih kecil di ponsel */
+        }
+
+        .emot {
+          font-size: 30px; /* Ukuran emotikon lebih kecil di ponsel */
+        }
+
+        button {
+          font-size: 14px; /* Ukuran tombol lebih kecil di ponsel */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="photo">
+      <img src="asset/img kekasih.jpeg" alt="foto ayang" class="foto" />
+    </div>
+
+    <div class="emot">❤️❤️❤️🌸🌸🌸❤️❤️❤️</div>
+    <!-- Banyak emotikon cinta dan bunga -->
+
+    <div class="text" id="kataKata"></div>
+
+    <button id="nextButton">Kata Selanjutnya</button>
+    <!-- Tombol untuk mengganti kata -->
+
+    <script>
+      const kataKata = [
+        "Dulu Kenal Tak Sengaja, Sekarang Sayangnya Tak Terkira",
+        "Kamu Membuatku Merasa Selalu Spesial",
+        "Penyayang Dan Perhatianmu Membuatku Merasa Tercinta",
+        "Hidupku Lebih Berwarna Sejak Mengenalmu",
+        "AKU SUDAH TERLALU NYAMAN BERSAMAMU",
+        "JANGAN PENAH PERGI MENINGGALKANKU...",
+        "I LOVE YOU SAK KEBUN ❤️❤️❤️...",
+        "DEVINA ISMA SABRIYANI❤️A.A`LAMUDDIN ARRIDLO",
+      ];
+
+      let index = 0;
+      let charIndex = 0;
+      const textElement = document.getElementById("kataKata");
+      const nextButton = document.getElementById("nextButton");
+
+      function type() {
+        if (charIndex < kataKata[index].length) {
+          textElement.textContent += kataKata[index].charAt(charIndex);
+          charIndex++;
+          setTimeout(type, 175); // Kecepatan mengetik
+        } else {
+          nextButton.style.display = "block"; // Tampilkan tombol setelah selesai mengetik
+        }
+      }
+
+      function resetTyping() {
+        textElement.textContent = ""; // Menghapus teks
+        charIndex = 0; // Reset indeks karakter
+        nextButton.style.display = "none"; // Sembunyikan tombol
+        type(); // Mulai mengetik lagi
+      }
+
+      function deleteText() {
+        if (charIndex > 0) {
+          textElement.textContent = kataKata[index].substring(0, charIndex - 1);
+          charIndex--;
+          setTimeout(deleteText, 100); // Kecepatan menghapus
+        } else {
+          index = (index + 1) % kataKata.length; // Pindah ke kata-kata berikutnya
+          setTimeout(type, 500); // Tunggu sebelum mulai mengetik lagi
+        }
+      }
+
+      nextButton.addEventListener("click", function () {
+        index = (index + 1) % kataKata.length; // Pindah ke kata-kata berikutnya
+        resetTyping(); // Reset dan mulai mengetik
+      });
+
+      // Mulai efek ketikan
+      type();
+    </script>
+  </body>
+</html>
